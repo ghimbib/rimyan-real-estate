@@ -3,114 +3,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rimyan Real Estate</title>
+    <title>Bibek Ghimire | Colorado Springs Real Estate Agent | Rimyan</title>
+    <meta name="description" content="Licensed real estate agent serving Colorado Springs, El Paso County, and Denver metro. Buying, selling, and investing across the Front Range. Schedule a free consultation.">
+    <meta name="keywords" content="Colorado Springs real estate agent, Denver metro real estate, Front Range real estate, Colorado Springs homes for sale, real estate investment Colorado">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+
+    <!-- Schema.org JSON-LD for RealEstateAgent -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "RealEstateAgent",
+        "name": "Bibek Ghimire",
+        "description": "Licensed real estate agent serving Colorado Springs, El Paso County, and Denver metro area.",
+        "url": "https://rimyan.com",
+        "areaServed": [
+            {"@type": "City", "name": "Colorado Springs", "containedInPlace": {"@type": "State", "name": "Colorado"}},
+            {"@type": "City", "name": "Denver", "containedInPlace": {"@type": "State", "name": "Colorado"}},
+            {"@type": "County", "name": "El Paso County", "containedInPlace": {"@type": "State", "name": "Colorado"}},
+            {"@type": "County", "name": "Douglas County", "containedInPlace": {"@type": "State", "name": "Colorado"}}
+        ],
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Colorado Springs",
+            "addressRegion": "CO",
+            "addressCountry": "US"
+        }
+    }
+    </script>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>Rimyan Real Estate</h1>
-            <nav>
-                <ul>
-                    <li><a href="#about">About Us</a></li>
-                    <li><a href="#listings">Listings</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="container nav-inner">
+            <a href="#" class="nav-logo">Bibek Ghimire</a>
+            <button class="nav-toggle" aria-label="Toggle menu" id="navToggle">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about">About</a></li>
+                <li><a href="#areas">Areas</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#why">Why Me</a></li>
+                <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
+            </ul>
         </div>
-    </header>
+    </nav>
 
-    <main>
-        <section id="hero" class="hero">
-            <div class="container">
-                <h2>Your Partner in Real Estate</h2>
-                <p>Helping you find your dream home or ideal investment property.</p>
-                <a href="#listings" class="button">View Listings</a>
+    <!-- Hero -->
+    <section class="hero" id="hero">
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <h1>Bibek Ghimire</h1>
+            <p class="hero-subtitle">Licensed Real Estate Agent&ensp;|&ensp;Colorado</p>
+            <p class="hero-tagline">Buying, selling, or investing in Colorado Springs and the Denver metro?<br>Let's find the right move.</p>
+            <div class="hero-ctas">
+                <a href="#contact" class="btn btn-primary">Schedule a Free Consultation</a>
+                <a href="tel:+1XXXXXXXXXX" class="btn btn-secondary">Call [PHONE]</a>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="about" class="about">
-            <div class="container">
-                <h2>About Rimyan Real Estate</h2>
-                <p>Welcome to Rimyan Real Estate, founded by Bibek. We are dedicated to providing exceptional real estate services, whether you are buying, selling, or investing. With a deep understanding of the local market and a commitment to client satisfaction, we strive to make your real estate journey seamless and successful.</p>
-                <p>Our mission is to build lasting relationships with our clients by offering personalized advice, transparent processes, and unparalleled market expertise. We believe in integrity, professionalism, and putting our clients' needs first.</p>
-            </div>
-        </section>
-
-        <section id="listings" class="listings">
-            <div class="container">
-                <h2>Current Listings</h2>
-                <div class="listing-grid">
-                    <!-- Placeholder Listing 1 -->
-                    <div class="listing-item">
-                        <img src="https://via.placeholder.com/300x200" alt="Property Image 1">
-                        <h3>Modern Family Home</h3>
-                        <p>3 Bed | 2 Bath | 1800 sqft</p>
-                        <p class="price">$450,000</p>
-                        <a href="#" class="button-small">Details</a>
-                    </div>
-                    <!-- Placeholder Listing 2 -->
-                    <div class="listing-item">
-                        <img src="https://via.placeholder.com/300x200" alt="Property Image 2">
-                        <h3>Downtown Apartment</h3>
-                        <p>2 Bed | 2 Bath | 1200 sqft</p>
-                        <p class="price">$320,000</p>
-                        <a href="#" class="button-small">Details</a>
-                    </div>
-                    <!-- Placeholder Listing 3 -->
-                    <div class="listing-item">
-                        <img src="https://via.placeholder.com/300x200" alt="Property Image 3">
-                        <h3>Investment Property</h3>
-                        <p>4 Bed | 3 Bath | 2500 sqft</p>
-                        <p class="price">$680,000</p>
-                        <a href="#" class="button-small">Details</a>
+    <!-- About -->
+    <section class="section" id="about">
+        <div class="container">
+            <h2 class="section-title">About Bibek</h2>
+            <div class="about-grid">
+                <div class="about-photo">
+                    <div class="photo-placeholder">
+                        <span>BG</span>
                     </div>
                 </div>
-                <p class="view-all"><a href="#">View All Properties</a></p>
-            </div>
-        </section>
-
-        <section id="services" class="services">
-            <div class="container">
-                <h2>Our Services</h2>
-                <div class="service-grid">
-                    <div class="service-item">
-                        <h3>Buying a Home</h3>
-                        <p>Expert guidance through every step of the home buying process, from searching to closing.</p>
-                    </div>
-                    <div class="service-item">
-                        <h3>Selling Your Property</h3>
-                        <p>Maximize your property's value with our strategic marketing and negotiation skills.</p>
-                    </div>
-                    <div class="service-item">
-                        <h3>Real Estate Investing</h3>
-                        <p>Identify lucrative investment opportunities and build a strong real estate portfolio.</p>
-                    </div>
+                <div class="about-text">
+                    <p>I'm a licensed real estate agent based in Colorado Springs, serving the Pikes Peak region and Denver metro area.</p>
+                    <p>I work with first-time buyers navigating a competitive market, homeowners looking to sell at the right price, and investors building portfolios across the Front Range. Whether it's a single-family home in Briargate, a duplex in Arvada, or land in El Paso County — I bring market data, honest advice, and zero pressure.</p>
+                    <p>Before real estate, I built software companies. That background means I approach every deal analytically — comparable sales, market timing, negotiation leverage — not gut feelings. You get a strategy, not a sales pitch.</p>
+                    <p class="about-meta">Licensed in Colorado&ensp;·&ensp;Based in Colorado Springs&ensp;·&ensp;Available across the Front Range</p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="contact" class="contact">
-            <div class="container">
-                <h2>Contact Us</h2>
-                <p>Ready to start your real estate journey? Get in touch with us today!</p>
-                <p>Email: <a href="mailto:info@rimyanrealestate.com">info@rimyanrealestate.com</a></p>
-                <p>Phone: <a href="tel:+15551234567">+1 (555) 123-4567</a></p>
-                <p>Address: 123 Main Street, Anytown, USA</p>
-                <form action="#" method="POST" class="contact-form">
+    <!-- Areas Served -->
+    <section class="section section-alt" id="areas">
+        <div class="container">
+            <h2 class="section-title">Areas I Serve</h2>
+            <p class="section-intro">I specialize in the Front Range corridor, from Colorado Springs to the Denver metro area.</p>
+            <div class="areas-grid">
+                <div class="area-card">
+                    <div class="area-icon">🏔️</div>
+                    <h3>Colorado Springs</h3>
+                    <p>Briargate, Northgate, Powers Corridor, Old Colorado City, Manitou Springs</p>
+                </div>
+                <div class="area-card">
+                    <div class="area-icon">🌲</div>
+                    <h3>El Paso County</h3>
+                    <p>Falcon, Peyton, Black Forest, Monument, Palmer Lake</p>
+                </div>
+                <div class="area-card">
+                    <div class="area-icon">🏙️</div>
+                    <h3>Denver Metro</h3>
+                    <p>Arvada, Lakewood, Westminster, Thornton, Aurora</p>
+                </div>
+                <div class="area-card">
+                    <div class="area-icon">⛰️</div>
+                    <h3>Douglas County</h3>
+                    <p>Castle Rock, Parker, Lone Tree, Highlands Ranch</p>
+                </div>
+            </div>
+            <p class="section-note">Each market moves differently. Colorado Springs is not Denver — different price points, different inventory cycles, different buyer profiles. I track both so you don't have to.</p>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section class="section" id="services">
+        <div class="container">
+            <h2 class="section-title">What I Do</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    </div>
+                    <h3>Buying</h3>
+                    <p>Looking for your first home or your next investment? I help you find properties that match your criteria and budget, negotiate the best terms, and close without surprises. I'll walk you through inspections, appraisals, and financing — no question is too basic.</p>
+                    <a href="#contact" class="service-cta">Let's find your home →</a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+                    </div>
+                    <h3>Selling</h3>
+                    <p>When you're ready to sell, I'll price your home using current comparables (not Zestimates), stage and market it for maximum exposure, and handle negotiations so you net more at closing. I track Days on Market obsessively — because time is money.</p>
+                    <a href="#contact" class="service-cta">Get a free home valuation →</a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                    </div>
+                    <h3>Investing</h3>
+                    <p>I work with investors looking for cash-flow properties, fix-and-flips, and long-term holds across the Front Range. I analyze cap rates, rent comps, and market trends to find deals that actually pencil out — not just look good on a flyer.</p>
+                    <a href="#contact" class="service-cta">See investment opportunities →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Me -->
+    <section class="section section-alt" id="why">
+        <div class="container">
+            <h2 class="section-title">Why Clients Choose Me</h2>
+            <div class="why-grid">
+                <div class="why-card">
+                    <div class="why-icon">📊</div>
+                    <h3>Data-Driven Approach</h3>
+                    <p>I don't guess — I analyze. Every recommendation comes with comparable sales, market data, and a clear rationale. You'll understand exactly why a property is priced the way it is.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">📍</div>
+                    <h3>Front Range Expertise</h3>
+                    <p>I actively work Colorado Springs and Denver metro. That means I know when Briargate inventory tightens, when Arvada duplexes come to market, and when to move fast vs. wait.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">💬</div>
+                    <h3>Responsive Communication</h3>
+                    <p>You'll hear back from me, not an assistant. Text, call, or email — I respond within hours, not days. Real estate moves fast; your agent should too.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">🤝</div>
+                    <h3>No Pressure, Ever</h3>
+                    <p>I'd rather lose a commission than push you into a bad deal. If the numbers don't work, I'll tell you. If you should wait, I'll say so. My job is to give you the best advice, not the most convenient one.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section" id="testimonials">
+        <div class="container">
+            <h2 class="section-title">What Clients Say</h2>
+            <div class="testimonial-placeholder">
+                <p><em>Coming soon — I'm building my client base and would love for you to be one of the first.</em></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section section-dark" id="contact">
+        <div class="container">
+            <h2 class="section-title light">Let's Talk</h2>
+            <p class="section-intro light">Whether you're ready to buy, thinking about selling, or just want to know what your home is worth — I'm here.</p>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Bibek Ghimire</h3>
+                    <p>Licensed Real Estate Agent</p>
+                    <p>Colorado Springs, CO</p>
+                    <div class="contact-details">
+                        <a href="tel:+1XXXXXXXXXX" class="contact-link">📞 [PHONE]</a>
+                        <a href="mailto:contact@rimyan.com" class="contact-link">📧 [EMAIL]</a>
+                    </div>
+                    <p class="contact-note">Prefer to schedule? <a href="#contact">Book a free 15-minute consultation →</a></p>
+                </div>
+                <form class="contact-form" action="https://formspree.io/f/[FORMSPREE_ID]" method="POST">
                     <input type="text" name="name" placeholder="Your Name" required>
                     <input type="email" name="email" placeholder="Your Email" required>
-                    <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-                    <button type="submit" class="button">Send Message</button>
+                    <input type="tel" name="phone" placeholder="Phone (optional)">
+                    <textarea name="message" placeholder="What are you looking for?" rows="4" required></textarea>
+                    <button type="submit" class="btn btn-primary btn-full">Send Message</button>
                 </form>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 Rimyan Real Estate. All rights reserved.</p>
+    <!-- Mobile Sticky CTA -->
+    <div class="mobile-sticky" id="mobileCta">
+        <a href="tel:+1XXXXXXXXXX" class="btn btn-primary btn-full">📞 Call Bibek</a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="footer-main">
+                <p>&copy; 2026 Bibek Ghimire&ensp;|&ensp;Rimyan Real Estate</p>
+                <p>Licensed Real Estate Agent, State of Colorado</p>
+                <p class="footer-brokerage">[BROKERAGE NAME]&ensp;·&ensp;License #[LICENSE_NUMBER]</p>
+            </div>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms</a>
+            </div>
+            <div class="footer-eho">
+                <p>Equal Housing Opportunity</p>
+            </div>
         </div>
     </footer>
 
