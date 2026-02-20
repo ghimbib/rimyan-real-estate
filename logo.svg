@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" fill="none">
+  <!-- Icon: Mountain + House + People -->
+  <g transform="translate(0, 8)">
+    <!-- Mountain backdrop -->
+    <path d="M8 60 L28 20 L38 35 L48 15 L68 60Z" fill="#0A2540" opacity="0.15"/>
+    <path d="M8 60 L28 22 L38 35 L48 17 L68 60Z" fill="none" stroke="#0A2540" stroke-width="1.5" stroke-linejoin="round"/>
+    
+    <!-- House -->
+    <path d="M28 60 L28 40 L38 32 L48 40 L48 60Z" fill="#0A2540"/>
+    <path d="M38 32 L24 43 L38 30 L52 43Z" fill="#00C4B4"/>
+    <!-- Door -->
+    <rect x="35" y="48" width="6" height="12" rx="1" fill="#00C4B4"/>
+    <!-- Window -->
+    <rect x="30" y="42" width="5" height="5" rx="0.5" fill="#00C4B4" opacity="0.6"/>
+    <rect x="41" y="42" width="5" height="5" rx="0.5" fill="#00C4B4" opacity="0.6"/>
+    
+    <!-- People (abstract) -->
+    <!-- Person 1 -->
+    <circle cx="18" cy="46" r="3.5" fill="#0A2540"/>
+    <path d="M18 50 L18 58" stroke="#0A2540" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M14 54 L18 51 L22 54" stroke="#0A2540" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+    
+    <!-- Person 2 -->
+    <circle cx="58" cy="46" r="3.5" fill="#00C4B4"/>
+    <path d="M58 50 L58 58" stroke="#00C4B4" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M54 54 L58 51 L62 54" stroke="#00C4B4" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+  </g>
+  
+  <!-- Wordmark: RiMyAn -->
+  <g transform="translate(80, 0)">
+    <!-- "Ri" in navy -->
+    <text x="0" y="52" font-family="Inter, -apple-system, sans-serif" font-size="38" font-weight="700" fill="#0A2540" letter-spacing="-0.5">Ri</text>
+    <!-- "My" in teal -->
+    <text x="46" y="52" font-family="Inter, -apple-system, sans-serif" font-size="38" font-weight="700" fill="#00C4B4" letter-spacing="-0.5">My</text>
+    <!-- "An" in navy -->
+    <text x="104" y="52" font-family="Inter, -apple-system, sans-serif" font-size="38" font-weight="700" fill="#0A2540" letter-spacing="-0.5">An</text>
+    
+    <!-- "Real Estate" subtitle -->
+    <text x="1" y="70" font-family="Inter, -apple-system, sans-serif" font-size="13" font-weight="500" fill="#64748b" letter-spacing="3">REAL ESTATE</text>
+  </g>
+</svg>
