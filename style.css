@@ -1,5 +1,5 @@
 /* ============================================================
-   Rimyan Real Estate — Bibek Ghimire Personal Agent Site
+   Rimyan Real Estate — Company Site
    Brand: Navy #0A2540 | Teal #00C4B4 | White
    Typography: Inter
    ============================================================ */
@@ -88,6 +88,7 @@ a:hover { color: var(--teal-hover); }
   letter-spacing: -0.01em;
 }
 .nav-logo:hover { color: var(--teal); }
+.nav-logo-accent { font-weight: 400; color: var(--gray-400); }
 
 .nav-links {
   display: flex;
@@ -204,6 +205,15 @@ a:hover { color: var(--teal-hover); }
   letter-spacing: -0.02em;
 }
 
+.hero-tag {
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--teal);
+  margin-bottom: 16px;
+}
+
 .hero-subtitle {
   font-size: 1.125rem;
   color: var(--gray-300);
@@ -269,27 +279,26 @@ a:hover { color: var(--teal-hover); }
 
 /* ---- About ---- */
 
-.about-grid {
+.about-content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.about-lead {
+  font-size: 1.2rem;
+  color: var(--gray-700);
+  text-align: center;
+  margin-bottom: 40px;
+  line-height: 1.7;
+}
+
+.about-columns {
   display: grid;
-  grid-template-columns: 200px 1fr;
-  gap: 48px;
-  align-items: start;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
 }
 
-.photo-placeholder {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  background: var(--navy);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--white);
-  font-size: 3rem;
-  font-weight: 700;
-}
-
-.about-text p {
+.about-columns p {
   margin-bottom: 16px;
   font-size: 1.05rem;
 }
@@ -416,6 +425,103 @@ a:hover { color: var(--teal-hover); }
 .why-card p {
   font-size: 0.95rem;
   color: var(--gray-600);
+}
+
+/* ---- Team ---- */
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.team-card {
+  text-align: center;
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 40px 28px 32px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--gray-200);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.team-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.team-card-open {
+  border-style: dashed;
+  background: var(--gray-50);
+}
+
+.team-photo {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: var(--navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 auto 20px;
+}
+
+.team-photo-open {
+  background: var(--gray-200);
+  color: var(--gray-400);
+  font-size: 2.5rem;
+  font-weight: 300;
+}
+
+.team-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+.team-role {
+  font-size: 0.875rem;
+  color: var(--teal);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.team-bio {
+  font-size: 0.9rem;
+  color: var(--gray-600);
+  line-height: 1.6;
+}
+
+.team-bio a { color: var(--teal); font-weight: 500; }
+
+/* ---- Contact Form Select ---- */
+
+.contact-form select {
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 14px 16px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: var(--radius-sm);
+  background: rgba(255,255,255,0.06);
+  color: var(--white);
+  transition: border-color 0.2s, background 0.2s;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2394a3b8' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+}
+.contact-form select:focus {
+  outline: none;
+  border-color: var(--teal);
+  background-color: rgba(255,255,255,0.1);
+}
+.contact-form select option {
+  background: var(--navy);
+  color: var(--white);
 }
 
 /* ---- Testimonials ---- */
@@ -592,20 +698,14 @@ a:hover { color: var(--teal-hover); }
   .hero-ctas { flex-direction: column; }
   .hero-ctas .btn { width: 100%; }
 
-  .about-grid {
+  .about-columns {
     grid-template-columns: 1fr;
-    text-align: center;
-  }
-  .photo-placeholder {
-    margin: 0 auto;
-    width: 150px;
-    height: 150px;
-    font-size: 2.5rem;
   }
 
   .areas-grid { grid-template-columns: repeat(2, 1fr); }
   .services-grid { grid-template-columns: 1fr; }
   .why-grid { grid-template-columns: 1fr; }
+  .team-grid { grid-template-columns: 1fr; max-width: 400px; }
   .contact-grid { grid-template-columns: 1fr; }
 
   .mobile-sticky { display: block; }
