@@ -43,20 +43,52 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(hero);
   }
 
-  // Contact form submission (Formspree handles the POST, this adds UX)
-  const form = document.querySelector('.contact-form');
+  // Contact form — AJAX submission via formsubmit.co
+  const form = document.getElementById('contactForm');
   if (form) {
-    form.addEventListener('submit', function (e) {
-      const btn = form.querySelector('button[type="submit"]');
-      // If no Formspree ID configured, prevent submission
-      if (form.action.includes('[FORMSPREE_ID]')) {
-        e.preventDefault();
-        alert('Contact form is not yet configured. Please call or email directly.');
-        return;
-      }
-      if (btn) {
-        btn.textContent = 'Sending...';
-        btn.disabled = true;
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const btn = document.getElementById('submitBtn');
+      const successEl = document.getElementById('formSuccess');
+      const errorEl = document.getElementById('formError');
+
+      // Reset states
+      successEl.style.display = 'none';
+      errorEl.style.display = 'none';
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
+
+      // Collect form data
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      // Add timestamp
+      data._subject = `Rimyan.com Contact: ${data.name} — ${data.interest || 'General'}`;
+      data._template = 'table';
+      data.submitted_at = new Date().toLocaleString('en-US', { timeZone: 'America/Denver' }) + ' MST';
+
+      try {
+        const res = await fetch('https://formsubmit.co/ajax/info@rimyan.com', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        if (res.ok) {
+          successEl.style.display = 'block';
+          form.reset();
+          // Scroll success into view
+          successEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        } else {
+          throw new Error('Server error');
+        }
+      } catch (err) {
+        errorEl.style.display = 'block';
+        errorEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      } finally {
+        btn.textContent = 'Send Message';
+        btn.disabled = false;
       }
     });
   }
