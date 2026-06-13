@@ -1,5 +1,5 @@
 /* ============================================================
-   Rimyan Real Estate — Company Site
+   Rimyan — Real Estate Website
    Brand: Navy #0A2540 | Teal #00C4B4 | White
    Typography: Inter
    ============================================================ */
@@ -83,7 +83,9 @@ a:hover { color: var(--teal-hover); }
 
 .nav-logo {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
 }
 
 .nav-logo-img {
@@ -92,6 +94,15 @@ a:hover { color: var(--teal-hover); }
   transition: opacity 0.2s;
 }
 .nav-logo:hover .nav-logo-img { opacity: 0.85; }
+
+.nav-disclosure {
+  color: var(--gray-300);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
 
 .nav-links {
   display: flex;
@@ -228,7 +239,19 @@ a:hover { color: var(--teal-hover); }
   font-size: 1.25rem;
   line-height: 1.7;
   color: rgba(255,255,255,0.85);
-  margin-bottom: 40px;
+  margin-bottom: 18px;
+}
+
+.hero-disclosure {
+  max-width: 620px;
+  margin: 0 auto 40px;
+  color: rgba(255,255,255,0.82);
+  font-size: 0.98rem;
+  line-height: 1.5;
+}
+
+.hero-disclosure strong {
+  color: var(--white);
 }
 
 .hero-ctas {
@@ -434,7 +457,8 @@ a:hover { color: var(--teal-hover); }
 
 .team-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: minmax(0, 420px);
+  justify-content: center;
   gap: 32px;
   max-width: 900px;
   margin: 0 auto;
@@ -584,6 +608,19 @@ a:hover { color: var(--teal-hover); }
 }
 .contact-note a { color: var(--teal); }
 
+.brokerage-note {
+  margin-top: 18px !important;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255,255,255,0.12);
+  color: var(--gray-300) !important;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.brokerage-note strong {
+  color: var(--white);
+}
+
 .contact-form {
   display: flex;
   flex-direction: column;
@@ -690,6 +727,15 @@ a:hover { color: var(--teal-hover); }
     border-bottom: 1px solid rgba(255,255,255,0.08);
   }
   .nav-links.open { display: flex; }
+
+  .nav-logo-img {
+    height: 30px;
+  }
+
+  .nav-disclosure {
+    max-width: 210px;
+    font-size: 0.56rem;
+  }
 
   .nav-cta {
     text-align: center;
