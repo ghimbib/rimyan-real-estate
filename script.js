@@ -1,8 +1,7 @@
 const RIMYAN_CONFIG = {
   leadEmail: 'bibek@rimyan.com',
-  // TODO: replace this with the dedicated Google Voice / Google Workspace number before production.
-  phoneDisplay: '281-910-8744',
-  phoneHref: 'tel:+12819108744',
+  phoneDisplay: '719-445-9216',
+  phoneHref: 'tel:+17194459216',
   connectors: {
     idxAdvancedSearch: '',
     idxMapSearch: '',
