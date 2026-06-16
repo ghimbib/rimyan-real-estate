@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
         filters.length ? `Filters: ${filters.join(', ')}` : ''
       ].filter(Boolean).join(' | ');
       setLeadContext(context);
-      showToast('Search shell captured. IDX connector is pending, so this routes into the contact form for now.');
+      showToast('Got it. Send your contact details and I’ll follow up with matching homes.');
       document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
     });
   }
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const email = data.get('email') || 'Email not provided';
       setLeadContext(`Seller valuation request: ${address} | Email: ${email}`);
       prefillContact({ email, interest: 'Selling', message: `I would like a home valuation for: ${address}` });
-      showToast('Valuation connector pending. I moved this into the contact form so it can still convert.');
+      showToast('Got it. Send the request and I’ll follow up with a practical pricing read.');
       document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
     });
   }
@@ -98,13 +98,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-
-  document.querySelectorAll('[data-connector]').forEach((el) => {
-    el.addEventListener('click', () => {
-      const name = el.dataset.connector;
-      if (name) showToast(`Connector slot ready: ${name}. Add provider snippet/API target when available.`);
-    });
-  });
 
   function closeMobileNav() {
     if (!links || !toggle) return;
