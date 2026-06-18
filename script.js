@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
     propertySearchForm.addEventListener('submit', (event) => {
       event.preventDefault();
       const data = new FormData(propertySearchForm);
-      const location = data.get('location') || 'Front Range';
+      const location = data.get('location') || 'Colorado Springs area';
       const filters = data.getAll('filters');
       const context = [
         `Buyer search request: ${location}`,
