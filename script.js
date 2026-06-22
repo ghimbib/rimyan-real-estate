@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   hydrateContactConfig();
   hydrateIdxConnectors();
+  hydrateValuationGauge();
 
   if (toggle && links) {
     toggle.addEventListener('click', () => {
@@ -209,6 +210,104 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function getMapStatus(mapUrl, searchUrl) {
     return mapUrl && searchUrl && mapUrl !== searchUrl ? 'Dedicated Matrix map search' : 'Live Matrix IDX';
+  }
+
+  function hydrateValuationGauge() {
+    const gauge = document.getElementById('valuationGauge');
+    const valueEl = document.getElementById('valuationGaugeValue');
+    const progress = document.getElementById('valuationGaugeProgress');
+    if (!gauge || !valueEl || !progress) return;
+
+    const min = Number(gauge.dataset.min) || 200000;
+    const max = Number(gauge.dataset.max) || 2000000;
+    const step = Number(gauge.dataset.step) || 25000;
+    const radius = Number(progress.getAttribute('r')) || 84;
+    const circumference = 2 * Math.PI * radius;
+    const minArc = circumference * 0.16;
+    const maxArc = circumference * 0.84;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let current = clampValue(650000, min, max);
+    let frameId = null;
+    let intervalId = null;
+
+    setGauge(current);
+    if (reduceMotion) return;
+
+    startGaugeLoop();
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        stopGaugeLoop();
+        return;
+      }
+      startGaugeLoop();
+    });
+
+    function startGaugeLoop() {
+      stopGaugeLoop();
+      intervalId = window.setInterval(() => {
+        animateGaugeTo(getRandomGaugeValue(current));
+      }, 1900);
+    }
+
+    function stopGaugeLoop() {
+      window.clearInterval(intervalId);
+      window.cancelAnimationFrame(frameId);
+    }
+
+    function animateGaugeTo(target) {
+      const start = current;
+      const startedAt = performance.now();
+      const duration = 760;
+      window.cancelAnimationFrame(frameId);
+
+      const tick = (now) => {
+        const progressRatio = Math.min((now - startedAt) / duration, 1);
+        const eased = 1 - Math.pow(1 - progressRatio, 3);
+        const value = start + ((target - start) * eased);
+        setGauge(value);
+        if (progressRatio < 1) {
+          frameId = window.requestAnimationFrame(tick);
+          return;
+        }
+        current = target;
+        setGauge(current);
+      };
+
+      frameId = window.requestAnimationFrame(tick);
+    }
+
+    function setGauge(value) {
+      const clamped = clampValue(value, min, max);
+      const ratio = (clamped - min) / (max - min);
+      const arc = minArc + ((maxArc - minArc) * ratio);
+      progress.style.strokeDasharray = `${arc.toFixed(1)} ${circumference.toFixed(1)}`;
+      valueEl.textContent = formatGaugeValue(clamped);
+    }
+
+    function getRandomGaugeValue(previous) {
+      const steps = Math.floor((max - min) / step);
+      let next = previous;
+      let attempts = 0;
+      while (Math.abs(next - previous) < 125000 && attempts < 8) {
+        next = min + (Math.floor(Math.random() * (steps + 1)) * step);
+        attempts += 1;
+      }
+      return clampValue(next, min, max);
+    }
+  }
+
+  function clampValue(value, min, max) {
+    return Math.min(Math.max(value, min), max);
+  }
+
+  function formatGaugeValue(value) {
+    const rounded = Math.round(value / 1000) * 1000;
+    if (rounded >= 1000000) {
+      const precision = rounded % 1000000 === 0 ? 0 : (rounded % 100000 === 0 ? 1 : 2);
+      return `$${(rounded / 1000000).toFixed(precision)}M`;
+    }
+    return `$${Math.round(rounded / 1000)}K`;
   }
 
   function setLeadContext(value) {
