@@ -1,7 +1,7 @@
 const RIMYAN_CONFIG = {
-  leadEmail: 'bibek@rimyan.com',
-  phoneDisplay: '719-445-9216',
-  phoneHref: 'tel:+17194459216',
+  leadEmail: 'bibek.homes@gmail.com',
+  phoneDisplay: '281-910-8744',
+  phoneHref: 'tel:+12819108744',
   connectors: {
     idxAdvancedSearch: '',
     idxMapSearch: '',
@@ -124,14 +124,19 @@ document.addEventListener('DOMContentLoaded', () => {
   function hydrateContactConfig() {
     const emailLink = document.getElementById('emailLink');
     if (emailLink) {
-      emailLink.textContent = RIMYAN_CONFIG.leadEmail;
       emailLink.href = `mailto:${RIMYAN_CONFIG.leadEmail}`;
+      const value = emailLink.querySelector('.val');
+      if (value) value.textContent = RIMYAN_CONFIG.leadEmail;
     }
+
     const phoneLink = document.getElementById('phoneLink');
     if (phoneLink) {
-      phoneLink.textContent = `Call/Text ${RIMYAN_CONFIG.phoneDisplay}`;
       phoneLink.href = RIMYAN_CONFIG.phoneHref;
+      const value = phoneLink.querySelector('.val');
+      if (value) value.textContent = RIMYAN_CONFIG.phoneDisplay;
     }
+    const mobilePhoneLink = document.getElementById('mobilePhoneLink');
+    if (mobilePhoneLink) mobilePhoneLink.href = RIMYAN_CONFIG.phoneHref;
   }
 
   function setLeadContext(value) {
