@@ -1,5 +1,5 @@
 const RIMYAN_CONFIG = {
-  leadEmail: 'bibek.homes@gmail.com',
+  leadEmail: 'bibek@rimyan.com',
   phoneDisplay: '281-910-8744',
   phoneHref: 'tel:+12819108744',
   connectors: {
