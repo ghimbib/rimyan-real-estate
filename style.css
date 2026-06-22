@@ -169,6 +169,7 @@ section{padding:clamp(70px,9vw,124px) 0}
 .contact-row .lbl{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
 .contact-row .val{font-size:17px;color:var(--ink);font-weight:500;margin-top:2px}
 .contact-row:hover .val{color:var(--navy)}
+.contact-row.backup .val{font-size:16px;color:var(--ink-soft)}
 .map-mini{position:relative;flex:1;min-height:160px;margin-top:auto;border:1px solid var(--line);border-radius:2px;overflow:hidden;background:radial-gradient(circle at 60% 38%, rgba(46,58,40,.16),transparent 42%),linear-gradient(135deg,#f1ecdd,#f8f4ea);display:flex;align-items:flex-end;padding:14px}
 .map-mini::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(27,44,94,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(27,44,94,.07) 1px,transparent 1px);background-size:34px 34px;opacity:.5}
 .map-pin{position:absolute;left:58%;top:42%;width:14px;height:14px;border-radius:50% 50% 50% 0;background:var(--gold);transform:rotate(-45deg);box-shadow:0 0 0 6px rgba(198,155,60,.18);z-index:2}
