@@ -1,6 +1,5 @@
 const RIMYAN_CONFIG = {
-  leadEmail: 'bibek@rimyan.com',
-  backupEmail: 'bibek.homes@gmail.com',
+  leadEmail: 'bibek.homes@gmail.com',
   phoneDisplay: '281-910-8744',
   phoneHref: 'tel:+12819108744',
   connectors: {
@@ -129,12 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const value = emailLink.querySelector('.val');
       if (value) value.textContent = RIMYAN_CONFIG.leadEmail;
     }
-    const backupEmailLink = document.getElementById('backupEmailLink');
-    if (backupEmailLink) {
-      backupEmailLink.href = `mailto:${RIMYAN_CONFIG.backupEmail}`;
-      const value = backupEmailLink.querySelector('.val');
-      if (value) value.textContent = RIMYAN_CONFIG.backupEmail;
-    }
+
     const phoneLink = document.getElementById('phoneLink');
     if (phoneLink) {
       phoneLink.href = RIMYAN_CONFIG.phoneHref;
