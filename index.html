@@ -109,7 +109,7 @@
           <label class="chip"><input type="checkbox" name="filters" value="New construction" form="propertySearchForm"> New construction</label>
           <label class="chip"><input type="checkbox" name="filters" value="Price drops" form="propertySearchForm"> Price drops</label>
         </div>
-        <p class="hero-note">Live MLS search arrives as my PPAR/elevateMLS access finishes. Until then, send your criteria and I'll hand-pull current matches — usually same day.</p>
+        <p class="hero-note">Search live elevateMLS listings below, then send me the homes or neighborhoods worth a sharper read.</p>
       </div>
     </section>
 
@@ -157,21 +157,27 @@
       </div>
     </section>
 
-    <section class="featured">
+    <section class="featured" id="listings">
       <div class="wrap">
         <div class="sec-head">
           <span class="eyebrow">Live from the MLS</span>
-          <h2>Currently on the <em>market</em>.</h2>
-          <p>Listings appear here automatically once IDX is connected.</p>
+          <h2>Search the current <em>market</em>.</h2>
+          <p>Live listings are powered by the approved elevateMLS / Matrix IDX feed.</p>
         </div>
-        <div class="listing-grid" data-connector="idx-featured">
-          <article class="listing"><div class="listing-img"><span class="listing-tag">For sale</span><span class="ph">Photo via IDX</span></div><div class="listing-body"><div class="price">Live pricing</div><div class="meta">Colorado Springs &middot; beds &middot; baths &middot; sqft</div></div></article>
-          <article class="listing"><div class="listing-img"><span class="listing-tag">For sale</span><span class="ph">Photo via IDX</span></div><div class="listing-body"><div class="price">Live pricing</div><div class="meta">Monument &middot; beds &middot; baths &middot; sqft</div></div></article>
-          <article class="listing"><div class="listing-img"><span class="listing-tag">For sale</span><span class="ph">Photo via IDX</span></div><div class="listing-body"><div class="price">Live pricing</div><div class="meta">Falcon &middot; beds &middot; baths &middot; sqft</div></div></article>
+        <div class="idx-shell" data-connector="idx-map">
+          <div class="idx-toolbar">
+            <div>
+              <span class="idx-kicker">PPAR / elevateMLS</span>
+              <strong>Interactive map search</strong>
+            </div>
+            <a class="idx-open" id="idxMapLink" href="https://ppmls.mlsmatrix.com/Matrix/public/IDX.aspx?idx=1d51306" target="_blank" rel="noopener noreferrer">Open full MLS search</a>
+          </div>
+          <iframe id="idxMapFrame" title="Live PPAR and elevateMLS property search" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" data-idx-frame="map" src="about:blank"></iframe>
+          <noscript><p class="idx-noscript">JavaScript is required for the embedded MLS map. <a href="https://ppmls.mlsmatrix.com/Matrix/public/IDX.aspx?idx=1d51306">Open the full MLS search</a>.</p></noscript>
         </div>
         <div class="featured-foot">
-          <a class="btn-line" href="#search">
-            Tell me what you're after
+          <a class="btn-line" href="#contact" data-scroll="#contact" data-context="IDX search: wants help narrowing live listings" data-interest="Buying">
+            Want help narrowing the list?
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
         </div>
@@ -193,7 +199,7 @@
         </div>
         <div class="gauge" aria-hidden="true">
           <svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="84" fill="none" stroke="rgba(251,247,239,.16)" stroke-width="10"/><circle cx="100" cy="100" r="84" fill="none" stroke="var(--gold)" stroke-width="10" stroke-linecap="round" stroke-dasharray="120 528" transform="rotate(-90 100 100)"/></svg>
-          <div class="gauge-c"><span class="gauge-v">$ — —</span><span class="gauge-l">Estimate appears<br>once IDX connects</span></div>
+          <div class="gauge-c"><span class="gauge-v">$ — —</span><span class="gauge-l">Pricing read<br>after request</span></div>
         </div>
       </div>
     </section>

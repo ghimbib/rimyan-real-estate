@@ -3,8 +3,8 @@ const RIMYAN_CONFIG = {
   phoneDisplay: '281-910-8744',
   phoneHref: 'tel:+12819108744',
   connectors: {
-    idxAdvancedSearch: '',
-    idxMapSearch: '',
+    idxAdvancedSearch: 'https://ppmls.mlsmatrix.com/Matrix/public/IDX.aspx?idx=1d51306',
+    idxMapSearch: 'https://ppmls.mlsmatrix.com/Matrix/public/IDX.aspx?idx=1d51306',
     featuredListings: '',
     valuation: '',
     marketReports: '',
@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const sourceContext = document.getElementById('sourceContext');
 
   hydrateContactConfig();
+  hydrateIdxConnectors();
 
   if (toggle && links) {
     toggle.addEventListener('click', () => {
@@ -73,6 +74,12 @@ document.addEventListener('DOMContentLoaded', () => {
       ].filter(Boolean).join(' · ');
       setLeadContext(context);
       prefillContact({ interest: 'Buying', message: 'Search request — ' + context });
+      const listings = document.getElementById('listings');
+      if (RIMYAN_CONFIG.connectors.idxMapSearch && listings) {
+        showToast('Live MLS search is loaded below. If a home jumps out, send it to me and I’ll give you the read.');
+        listings.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
       showToast('Got it. Add your contact details below and I’ll send matching homes worth your time.');
       document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
       focusContactHeading();
@@ -137,6 +144,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     const mobilePhoneLink = document.getElementById('mobilePhoneLink');
     if (mobilePhoneLink) mobilePhoneLink.href = RIMYAN_CONFIG.phoneHref;
+  }
+
+  function hydrateIdxConnectors() {
+    const idxUrl = RIMYAN_CONFIG.connectors.idxMapSearch || RIMYAN_CONFIG.connectors.idxAdvancedSearch;
+    const idxFrame = document.getElementById('idxMapFrame');
+    const idxLink = document.getElementById('idxMapLink');
+
+    if (idxLink && idxUrl) idxLink.href = idxUrl;
+    if (idxFrame && idxUrl) idxFrame.src = idxUrl;
   }
 
   function setLeadContext(value) {
