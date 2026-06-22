@@ -109,7 +109,7 @@
           <label class="chip"><input type="checkbox" name="filters" value="New construction" form="propertySearchForm"> New construction</label>
           <label class="chip"><input type="checkbox" name="filters" value="Price drops" form="propertySearchForm"> Price drops</label>
         </div>
-        <p class="hero-note">Search live elevateMLS listings below, then send me the homes or neighborhoods worth a sharper read.</p>
+        <p class="hero-note">Search live elevateMLS listings below, or open Matrix directly when you want the full filter set.</p>
       </div>
     </section>
 
@@ -162,17 +162,25 @@
         <div class="sec-head">
           <span class="eyebrow">Live from the MLS</span>
           <h2>Search the current <em>market</em>.</h2>
-          <p>Live listings are powered by the approved elevateMLS / Matrix IDX feed.</p>
+          <p>Live listings are powered by the approved elevateMLS / Matrix IDX feed. Use the embedded map, open the full Matrix search, or ask me for the broker-shortlist version.</p>
         </div>
         <div class="idx-shell" data-connector="idx-map">
           <div class="idx-toolbar">
             <div>
               <span class="idx-kicker">PPAR / elevateMLS</span>
-              <strong>Interactive map search</strong>
+              <strong id="idxToolTitle">Interactive map search</strong>
+              <span class="idx-status" id="idxToolStatus">Live Matrix IDX</span>
             </div>
-            <a class="idx-open" id="idxMapLink" href="https://ppmls.mlsmatrix.com/Matrix/public/IDX.aspx?idx=1d51306" target="_blank" rel="noopener noreferrer">Open full MLS search</a>
+            <div class="idx-actions" role="group" aria-label="MLS search tools">
+              <button class="idx-tab active" type="button" data-idx-tool="map" aria-pressed="true">Map Search</button>
+              <a class="idx-tab" id="idxSearchLink" href="https://ppmls.mlsmatrix.com/Matrix/public/IDX.aspx?idx=1d51306" target="_blank" rel="noopener noreferrer">Full Search</a>
+              <a class="idx-tab" id="idxListingsLink" href="#contact" data-scroll="#contact" data-context="IDX: wants Bibek's current listings" data-interest="Buying">My Listings</a>
+              <a class="idx-open" id="idxMapLink" href="https://ppmls.mlsmatrix.com/Matrix/public/IDX.aspx?idx=1d51306" target="_blank" rel="noopener noreferrer">Open in Matrix</a>
+            </div>
           </div>
-          <iframe id="idxMapFrame" title="Live PPAR and elevateMLS property search" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" data-idx-frame="map" src="about:blank"></iframe>
+          <div class="idx-frame-wrap">
+            <iframe id="idxMapFrame" title="Live PPAR and elevateMLS property search" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" data-idx-frame="map" src="about:blank"></iframe>
+          </div>
           <noscript><p class="idx-noscript">JavaScript is required for the embedded MLS map. <a href="https://ppmls.mlsmatrix.com/Matrix/public/IDX.aspx?idx=1d51306">Open the full MLS search</a>.</p></noscript>
         </div>
         <div class="featured-foot">

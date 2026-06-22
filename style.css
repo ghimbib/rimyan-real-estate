@@ -134,8 +134,14 @@ section{padding:clamp(70px,9vw,124px) 0}
 .idx-toolbar{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px 22px;background:var(--ivory);border-bottom:1px solid var(--line)}
 .idx-toolbar strong{display:block;font-family:var(--serif);font-weight:400;font-size:22px;line-height:1.1;color:var(--navy);margin-top:4px}
 .idx-kicker{display:block;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-deep)}
-.idx-open{flex:none;border:1px solid var(--navy);color:var(--navy);padding:10px 16px;border-radius:1px;font-size:12.5px;font-weight:600;letter-spacing:.04em;transition:background .25s,color .25s,border-color .25s}
-.idx-open:hover{background:var(--navy);color:var(--ivory);border-color:var(--navy)}
+.idx-status{display:inline-block;margin-top:8px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+.idx-actions{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+.idx-tab,.idx-open{display:inline-flex;align-items:center;justify-content:center;min-height:40px;border:1px solid var(--navy);padding:10px 14px;border-radius:1px;font-size:12.5px;font-weight:600;letter-spacing:.04em;line-height:1;transition:background .25s,color .25s,border-color .25s;white-space:nowrap;cursor:pointer}
+.idx-tab{background:var(--white);color:var(--navy)}
+.idx-tab:hover,.idx-tab.active,.idx-tab[aria-pressed="true"]{background:rgba(27,44,94,.08);border-color:var(--gold-deep);color:var(--navy)}
+.idx-open{flex:none;background:var(--navy);color:var(--ivory);border-color:var(--navy)}
+.idx-open:hover{background:#16244c;color:var(--ivory);border-color:#16244c}
+.idx-frame-wrap{background:var(--white)}
 .idx-shell iframe{display:block;width:100%;height:min(76vh,760px);min-height:620px;border:0;background:var(--white)}
 .idx-noscript{padding:18px 22px;color:var(--ink-soft);font-size:14px}.idx-noscript a{color:var(--navy);font-weight:600;text-decoration:underline;text-underline-offset:3px}
 
@@ -243,7 +249,8 @@ footer{background:var(--olive);color:rgba(251,247,239,.78);padding:56px 0 40px;f
   .cf-row{grid-template-columns:1fr}
   .mobile-sticky{display:grid}
   .idx-toolbar{align-items:flex-start;flex-direction:column}
-  .idx-open{width:100%;text-align:center}
+  .idx-actions{width:100%;justify-content:stretch}
+  .idx-tab,.idx-open{flex:1 1 136px;text-align:center}
   .idx-shell iframe{height:68vh;min-height:560px}
   footer{padding-bottom:96px}
   .foot-top{flex-direction:column;gap:28px}
