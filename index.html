@@ -4,11 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rimyan | Bibek Ghimire Real Estate | PCS Partners</title>
-    <meta name="description" content="Rimyan is the real estate website for Bibek Ghimire, Real Estate Broker with PCS Partners Military Real Estate, serving Colorado Springs and the Front Range.">
-    <meta name="keywords" content="Colorado Springs real estate, Denver metro real estate, Front Range real estate, Colorado Springs homes for sale, real estate investment Colorado, Bibek Ghimire, PCS Partners Military Real Estate, Rimyan">
+    <meta name="description" content="Rimyan is the real estate website for Bibek Ghimire, Real Estate Broker with PCS Partners Military Real Estate, serving Colorado Springs and the Front Range. Buying, selling, investing, and military/PCS relocation support.">
+    <meta name="keywords" content="Colorado Springs real estate, Denver metro real estate, Front Range real estate, Colorado Springs homes for sale, military relocation Colorado Springs, PCS move real estate, real estate investment Colorado, Bibek Ghimire, PCS Partners Military Real Estate, Rimyan">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Rimyan | Bibek Ghimire Real Estate">
+    <meta property="og:description" content="Data-driven, no-pressure real estate across Colorado Springs and the Front Range — with a focus on military and PCS moves.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rimyan.com">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="icon.svg">
     <link rel="stylesheet" href="style.css">
 
@@ -18,9 +25,10 @@
         "@context": "https://schema.org",
         "@type": "RealEstateAgent",
         "name": "Bibek Ghimire",
-        "description": "Real estate broker with PCS Partners Military Real Estate serving Colorado Springs, El Paso County, and Denver metro area.",
+        "description": "Real estate broker with PCS Partners Military Real Estate serving Colorado Springs, El Paso County, and Denver metro area, with a focus on military and PCS relocation.",
         "url": "https://rimyan.com",
-        "telephone": "+1-281-910-8744",
+        "image": "https://rimyan.com/bibek-headshot.jpg",
+        "telephone": "+1-719-445-9216",
         "email": "bibek@rimyan.com",
         "brand": {
             "@type": "Brand",
@@ -39,8 +47,10 @@
         ],
         "address": {
             "@type": "PostalAddress",
+            "streetAddress": "7450 Campus Dr Suite 100",
             "addressLocality": "Colorado Springs",
             "addressRegion": "CO",
+            "postalCode": "80920",
             "addressCountry": "US"
         }
     }
@@ -51,7 +61,7 @@
     <!-- Navigation -->
     <nav class="nav" id="nav">
         <div class="container nav-inner">
-            <a href="#" class="nav-logo" aria-label="Rimyan home">
+            <a href="#hero" class="nav-logo" aria-label="Rimyan home">
                 <img src="logo-white.svg" alt="Rimyan" class="nav-logo-img">
                 <span class="nav-disclosure">Brokerage: PCS Partners Military Real Estate</span>
             </a>
@@ -60,9 +70,10 @@
             </button>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#about">About</a></li>
+                <li><a href="#military">Military / PCS</a></li>
                 <li><a href="#areas">Areas</a></li>
                 <li><a href="#services">Services</a></li>
-                <li><a href="#team">About Bibek</a></li>
+                <li><a href="#team">Bibek</a></li>
                 <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
             </ul>
         </div>
@@ -70,15 +81,58 @@
 
     <!-- Hero -->
     <section class="hero" id="hero">
+        <div class="hero-bg" aria-hidden="true">
+            <svg class="hero-range" viewBox="0 0 1440 320" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 320 L0 180 L180 90 L320 170 L480 60 L640 160 L820 40 L1010 150 L1180 80 L1320 150 L1440 110 L1440 320 Z" fill="rgba(0,196,180,0.06)"/>
+                <path d="M0 320 L0 230 L200 150 L380 215 L560 120 L760 210 L960 130 L1150 205 L1320 150 L1440 200 L1440 320 Z" fill="rgba(0,196,180,0.05)"/>
+            </svg>
+        </div>
         <div class="hero-overlay"></div>
         <div class="container hero-content">
-            <p class="hero-tag">Rimyan | Bibek Ghimire</p>
-            <h1>Real Estate Done Right.<br>Across the Front Range.</h1>
-            <p class="hero-tagline">Buying, selling, or investing in Colorado Springs and the Denver metro? I bring data, strategy, and zero pressure to every deal.</p>
-            <p class="hero-disclosure">Bibek Ghimire, Real Estate Broker with <strong>PCS Partners Military Real Estate</strong> | CO License # FA.100112292</p>
-            <div class="hero-ctas">
-                <a href="#contact" class="btn btn-primary">Schedule a Free Consultation</a>
-                <a href="#services" class="btn btn-secondary">Services</a>
+            <div class="hero-copy">
+                <p class="hero-tag">Rimyan · Bibek Ghimire</p>
+                <h1>Real estate done right,<br><span class="accent">across the Front Range.</span></h1>
+                <p class="hero-tagline">Buying, selling, or investing in Colorado Springs and the Denver metro? I bring data, strategy, and zero pressure to every deal — with a focus on military and PCS moves.</p>
+                <div class="hero-ctas">
+                    <a href="#contact" class="btn btn-primary">Schedule a Free Consultation</a>
+                    <a href="#services" class="btn btn-secondary">Explore Services</a>
+                </div>
+                <p class="hero-disclosure">Bibek Ghimire, Real Estate Broker with <strong>PCS Partners Military Real Estate</strong> · CO License # FA.100112292</p>
+            </div>
+            <div class="hero-figure">
+                <div class="hero-photo">
+                    <img src="bibek-headshot.jpg" alt="Bibek Ghimire, Real Estate Broker" width="320" height="320">
+                </div>
+                <div class="hero-badge">
+                    <span class="hero-badge-label">Colorado Real Estate Broker</span>
+                    <span class="hero-badge-value">PCS Partners Military Real Estate</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Credibility band -->
+    <section class="cred-band" aria-label="What you can expect">
+        <div class="container cred-grid">
+            <div class="cred-item">
+                <span class="cred-icon" aria-hidden="true">📍</span>
+                <h3>Front Range Focus</h3>
+                <p>Colorado Springs to the Denver metro</p>
+            </div>
+            <div class="cred-item">
+                <span class="cred-icon" aria-hidden="true">🎖️</span>
+                <h3>Military &amp; PCS Moves</h3>
+                <p>Relocation support built around your timeline</p>
+            </div>
+            <div class="cred-item">
+                <span class="cred-icon" aria-hidden="true">📊</span>
+                <h3>Data-Driven</h3>
+                <p>Comps and strategy, not guesswork</p>
+            </div>
+            <div class="cred-item">
+                <span class="cred-icon" aria-hidden="true">🤝</span>
+                <h3>No Pressure</h3>
+                <p>Honest advice, even when it costs me</p>
             </div>
         </div>
     </section>
@@ -86,14 +140,14 @@
     <!-- About -->
     <section class="section" id="about">
         <div class="container">
-            <h2 class="section-title">About Rimyan</h2>
+            <h2 class="section-title reveal">About Rimyan</h2>
             <div class="about-content">
-                <p class="about-lead">Rimyan is the real estate website and client resource for Bibek Ghimire, a Colorado real estate broker with PCS Partners Military Real Estate.</p>
+                <p class="about-lead reveal">Rimyan is the real estate website and client resource for Bibek Ghimire, a Colorado real estate broker with PCS Partners Military Real Estate.</p>
                 <div class="about-columns">
-                    <div>
+                    <div class="reveal">
                         <p>I work with first-time buyers navigating a competitive market, homeowners looking to sell at the right price, and investors building portfolios across the Front Range. Whether it's a single-family home in Briargate, a duplex in Arvada, or land in El Paso County, you get market data, honest advice, and a commitment to getting the deal right.</p>
                     </div>
-                    <div>
+                    <div class="reveal">
                         <p>My approach combines real estate service with a technology-first mindset: comparable sales, market timing, negotiation leverage, and clear next steps instead of gut feelings. You get a strategy, not a sales pitch.</p>
                         <p class="about-meta">Based in Colorado Springs&ensp;·&ensp;Serving the entire Front Range&ensp;·&ensp;Brokerage: PCS Partners Military Real Estate</p>
                     </div>
@@ -102,43 +156,67 @@
         </div>
     </section>
 
+    <!-- Military / PCS -->
+    <section class="section section-military" id="military">
+        <div class="container military-inner">
+            <div class="military-copy reveal">
+                <p class="eyebrow">PCS Partners Military Real Estate</p>
+                <h2 class="section-title left light">Moving on military orders?</h2>
+                <p class="military-lead">A PCS move runs on a tight clock and a lot of unknowns. I help service members and their families land in the right home and the right neighborhood — whether you're reporting to Fort Carson, Peterson, Schriever, the Air Force Academy, or anywhere along the Front Range.</p>
+                <ul class="military-list">
+                    <li>Relocation planned around your report date and house-hunting trip</li>
+                    <li>Virtual tours and remote paperwork when you're still out of state</li>
+                    <li>Neighborhood, commute, and school guidance for each installation</li>
+                    <li>Connections to lenders and vendors familiar with military buyers</li>
+                </ul>
+                <a href="#contact" class="btn btn-primary">Talk Through Your Move</a>
+            </div>
+            <div class="military-card reveal">
+                <div class="military-stat"><strong>Fort Carson</strong><span>Southern Colorado Springs &amp; Fountain</span></div>
+                <div class="military-stat"><strong>Peterson SFB &amp; Schriever SFB</strong><span>East Colorado Springs &amp; Powers</span></div>
+                <div class="military-stat"><strong>U.S. Air Force Academy</strong><span>Northgate, Monument &amp; Briargate</span></div>
+                <div class="military-note">Incoming or outgoing — start the conversation early and the rest gets easier.</div>
+            </div>
+        </div>
+    </section>
+
     <!-- Areas Served -->
     <section class="section section-alt" id="areas">
         <div class="container">
-            <h2 class="section-title">Areas We Serve</h2>
-            <p class="section-intro">I focus on the Front Range corridor, from Colorado Springs to the Denver metro area.</p>
+            <h2 class="section-title reveal">Areas I Serve</h2>
+            <p class="section-intro reveal">I focus on the Front Range corridor, from Colorado Springs to the Denver metro area.</p>
             <div class="areas-grid">
-                <div class="area-card">
+                <div class="area-card reveal">
                     <div class="area-icon">🏔️</div>
                     <h3>Colorado Springs</h3>
                     <p>Briargate, Northgate, Powers Corridor, Old Colorado City, Manitou Springs</p>
                 </div>
-                <div class="area-card">
+                <div class="area-card reveal">
                     <div class="area-icon">🌲</div>
                     <h3>El Paso County</h3>
                     <p>Falcon, Peyton, Black Forest, Monument, Palmer Lake</p>
                 </div>
-                <div class="area-card">
+                <div class="area-card reveal">
                     <div class="area-icon">🏙️</div>
                     <h3>Denver Metro</h3>
                     <p>Arvada, Lakewood, Westminster, Thornton, Aurora</p>
                 </div>
-                <div class="area-card">
+                <div class="area-card reveal">
                     <div class="area-icon">⛰️</div>
                     <h3>Douglas County</h3>
                     <p>Castle Rock, Parker, Lone Tree, Highlands Ranch</p>
                 </div>
             </div>
-            <p class="section-note">Each market moves differently. Colorado Springs is not Denver — different price points, different inventory cycles, different buyer profiles. I track both so you don't have to.</p>
+            <p class="section-note reveal">Each market moves differently. Colorado Springs is not Denver — different price points, different inventory cycles, different buyer profiles. I track both so you don't have to.</p>
         </div>
     </section>
 
     <!-- Services -->
     <section class="section" id="services">
         <div class="container">
-            <h2 class="section-title">What We Do</h2>
+            <h2 class="section-title reveal">What I Do</h2>
             <div class="services-grid">
-                <div class="service-card">
+                <div class="service-card reveal">
                     <div class="service-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
                     </div>
@@ -146,7 +224,7 @@
                     <p>Looking for your first home or your next investment? I help you find properties that match your criteria and budget, negotiate the best terms, and close without surprises. I'll walk through inspections, appraisals, and financing with you, and no question is too basic.</p>
                     <a href="#contact" class="service-cta">Let's find your home →</a>
                 </div>
-                <div class="service-card">
+                <div class="service-card reveal">
                     <div class="service-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
                     </div>
@@ -154,7 +232,7 @@
                     <p>When you're ready to sell, I help price your home using current comparables, market it for maximum exposure, and handle negotiations with your net in mind. I track Days on Market closely because time is money.</p>
                     <a href="#contact" class="service-cta">Get a free home valuation →</a>
                 </div>
-                <div class="service-card">
+                <div class="service-card reveal">
                     <div class="service-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
                     </div>
@@ -169,24 +247,24 @@
     <!-- Why Us -->
     <section class="section section-alt" id="why">
         <div class="container">
-            <h2 class="section-title">Why Rimyan</h2>
+            <h2 class="section-title reveal">Why Rimyan</h2>
             <div class="why-grid">
-                <div class="why-card">
+                <div class="why-card reveal">
                     <div class="why-icon">📊</div>
                     <h3>Data-Driven Approach</h3>
                     <p>No guessing. Every recommendation comes with comparable sales, market data, and a clear rationale. You'll understand exactly why a property is priced the way it is.</p>
                 </div>
-                <div class="why-card">
+                <div class="why-card reveal">
                     <div class="why-icon">📍</div>
                     <h3>Front Range Expertise</h3>
                     <p>I actively track Colorado Springs and the Denver metro. That means watching when Briargate inventory tightens, when Arvada duplexes come to market, and when to move fast vs. wait.</p>
                 </div>
-                <div class="why-card">
+                <div class="why-card reveal">
                     <div class="why-icon">💻</div>
                     <h3>Technology-First</h3>
                     <p>My background brings a practical technology lens to market analysis, deal evaluation, and communication, all powered by tools and data, not guesswork.</p>
                 </div>
-                <div class="why-card">
+                <div class="why-card reveal">
                     <div class="why-icon">🤝</div>
                     <h3>No Pressure, Ever</h3>
                     <p>I would rather lose a commission than push you into a bad deal. If the numbers don't work, I'll say so. If you should wait, I'll say so. The job is to give you useful advice, not the most convenient answer.</p>
@@ -198,16 +276,20 @@
     <!-- About Bibek -->
     <section class="section" id="team">
         <div class="container">
-            <h2 class="section-title">About Bibek</h2>
-            <p class="section-intro">Rimyan is led by Bibek Ghimire and brokered through PCS Partners Military Real Estate.</p>
-            <div class="team-grid">
-                <div class="team-card">
-                    <div class="team-photo">
-                        <span>BG</span>
-                    </div>
+            <h2 class="section-title reveal">About Bibek</h2>
+            <p class="section-intro reveal">Rimyan is led by Bibek Ghimire and brokered through PCS Partners Military Real Estate.</p>
+            <div class="team-card reveal">
+                <div class="team-photo">
+                    <img src="bibek-headshot.jpg" alt="Bibek Ghimire, Real Estate Broker" width="160" height="160">
+                </div>
+                <div class="team-info">
                     <h3>Bibek Ghimire</h3>
-                    <p class="team-role">Real Estate Broker | PCS Partners Military Real Estate</p>
-                    <p class="team-bio">Software engineer turned real estate professional. Bibek brings an analytical, data-driven approach to every transaction across the Front Range.</p>
+                    <p class="team-role">Real Estate Broker · PCS Partners Military Real Estate</p>
+                    <p class="team-bio">Software engineer turned real estate professional. Bibek brings an analytical, data-driven approach to every transaction across the Front Range, with a focus on helping military families and relocating buyers move with confidence.</p>
+                    <div class="team-contact">
+                        <a href="tel:+17194459216" class="contact-link">Call/Text 719-445-9216</a>
+                        <a href="mailto:bibek@rimyan.com" class="contact-link">bibek@rimyan.com</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -216,9 +298,10 @@
     <!-- Testimonials -->
     <section class="section section-alt" id="testimonials">
         <div class="container">
-            <h2 class="section-title">What Clients Say</h2>
-            <div class="testimonial-placeholder">
+            <h2 class="section-title reveal">What Clients Say</h2>
+            <div class="testimonial-placeholder reveal">
                 <p><em>I'm building my client base and would love for you to be among the first to work with me.</em></p>
+                <a href="#contact" class="service-cta">Be one of the first →</a>
             </div>
         </div>
     </section>
@@ -231,10 +314,10 @@
             <div class="contact-grid">
                 <div class="contact-info">
                     <h3>Bibek Ghimire</h3>
-                    <p>Real Estate Broker | PCS Partners Military Real Estate</p>
-                    <p>Colorado Springs, CO | CO License # FA.100112292</p>
+                    <p>Real Estate Broker · PCS Partners Military Real Estate</p>
+                    <p>Colorado Springs, CO · CO License # FA.100112292</p>
                     <div class="contact-details">
-                        <a href="tel:+12819108744" class="contact-link">Call/Text 281-910-8744</a>
+                        <a href="tel:+17194459216" class="contact-link">Call/Text 719-445-9216</a>
                         <a href="mailto:bibek@rimyan.com" class="contact-link">Email bibek@rimyan.com</a>
                     </div>
                     <p class="brokerage-note"><strong>Brokerage:</strong> PCS Partners Military Real Estate<br>7450 Campus Dr Suite 100, Colorado Springs, CO 80920</p>
@@ -257,10 +340,10 @@
                         <option value="buying">Buying a Home</option>
                         <option value="selling">Selling a Property</option>
                         <option value="investing">Real Estate Investing</option>
-                        <option value="relocation">Relocation Support</option>
+                        <option value="relocation">Military / PCS Relocation</option>
                         <option value="other">Something Else</option>
                     </select>
-                    <textarea name="message" placeholder="Tell us more..." rows="4" required></textarea>
+                    <textarea name="message" placeholder="Tell me a bit about what you're looking for..." rows="4" required></textarea>
                     <button type="submit" class="btn btn-primary btn-full" id="submitBtn">Send Message</button>
                 </form>
             </div>
@@ -277,14 +360,15 @@
         <div class="container footer-inner">
             <div class="footer-main">
                 <p>&copy; 2026 Rimyan</p>
-                <p>Bibek Ghimire | Real Estate Broker | CO License # FA.100112292</p>
-                <p class="footer-brokerage">Brokerage: PCS Partners Military Real Estate | 7450 Campus Dr Suite 100, Colorado Springs, CO 80920</p>
+                <p>Bibek Ghimire · Real Estate Broker · CO License # FA.100112292</p>
+                <p class="footer-brokerage">Brokerage: PCS Partners Military Real Estate · 7450 Campus Dr Suite 100, Colorado Springs, CO 80920</p>
             </div>
             <div class="footer-links">
                 <a href="#">Privacy Policy</a>
                 <a href="#">Terms</a>
             </div>
             <div class="footer-eho">
+                <svg class="eho-logo" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v9h14v-9"/><path d="M10 19v-4h4v4"/><path d="M9.5 8.5h5"/></svg>
                 <p>Equal Housing Opportunity</p>
             </div>
         </div>
