@@ -42,7 +42,10 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!target) return;
       event.preventDefault();
       closeMobileNav();
+      if (el.dataset.context) setLeadContext(el.dataset.context);
+      if (el.dataset.interest) prefillContact({ interest: el.dataset.interest });
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (selector === '#contact') focusContactHeading();
     });
   });
 
@@ -57,16 +60,22 @@ document.addEventListener('DOMContentLoaded', () => {
       event.preventDefault();
       const data = new FormData(propertySearchForm);
       const location = data.get('location') || 'Colorado Springs area';
+      const beds = data.get('beds');
+      const price = data.get('price');
+      const type = data.get('type');
       const filters = data.getAll('filters');
       const context = [
-        `Buyer search request: ${location}`,
-        data.get('minPrice') ? `Min ${data.get('minPrice')}` : '',
-        data.get('maxPrice') ? `Max ${data.get('maxPrice')}` : '',
+        `Buyer search: ${location}`,
+        (beds && beds !== 'Any') ? `${beds} beds` : '',
+        (price && !/Any/.test(price)) ? price : '',
+        (type && !/All/.test(type)) ? type : '',
         filters.length ? `Filters: ${filters.join(', ')}` : ''
-      ].filter(Boolean).join(' | ');
+      ].filter(Boolean).join(' · ');
       setLeadContext(context);
-      showToast('Got it. Send your contact details and I’ll follow up with matching homes.');
+      prefillContact({ interest: 'Buying', message: 'Search request — ' + context });
+      showToast('Got it. Add your contact details below and I’ll send matching homes worth your time.');
       document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+      focusContactHeading();
     });
   }
 
@@ -79,8 +88,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const email = data.get('email') || 'Email not provided';
       setLeadContext(`Seller valuation request: ${address} | Email: ${email}`);
       prefillContact({ email, interest: 'Selling', message: `I would like a home valuation for: ${address}` });
-      showToast('Got it. Send the request and I’ll follow up with a practical pricing read.');
+      showToast('Got it. Confirm below and I’ll send back a real pricing read — comps, competition, and net.');
       document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+      focusContactHeading();
     });
   }
 
@@ -104,6 +114,11 @@ document.addEventListener('DOMContentLoaded', () => {
     links.classList.remove('open');
     toggle.classList.remove('active');
     toggle.setAttribute('aria-expanded', 'false');
+  }
+
+  function focusContactHeading() {
+    const h = document.querySelector('#contact h2');
+    if (h) window.setTimeout(() => h.focus({ preventScroll: true }), 480);
   }
 
   function hydrateContactConfig() {
