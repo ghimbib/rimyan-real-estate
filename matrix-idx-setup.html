@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Rimyan Matrix IDX Setup Checklist</title>
+  <style>
+    :root{color-scheme:light;--navy:#1B2C5E;--olive:#2E3A28;--gold:#C69B3C;--ivory:#FBF7EF;--ink:#20251C;--line:rgba(32,37,28,.14)}
+    body{margin:0;background:var(--ivory);color:var(--ink);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.6}
+    main{max-width:860px;margin:0 auto;padding:48px 22px 72px}
+    h1,h2{font-family:Georgia,serif;color:var(--navy);line-height:1.12}
+    h1{font-size:clamp(34px,6vw,54px);font-weight:400;margin:0 0 12px}
+    h2{font-size:24px;margin:34px 0 12px}
+    p{max-width:72ch}.lede{font-size:18px;color:#4d5045}.card{background:#fff;border:1px solid var(--line);border-top:3px solid var(--gold);padding:22px;margin:22px 0;box-shadow:0 24px 56px -38px rgba(27,44,94,.35)}
+    ol,ul{padding-left:24px}.slot{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#f4efe5;border:1px solid var(--line);padding:2px 6px;border-radius:3px}.warn{border-left:4px solid var(--gold);padding-left:14px;color:#4f4526}.ok{color:var(--olive);font-weight:700}code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.95em}
+  </style>
+</head>
+<body>
+  <main>
+    <p class="slot">Rimyan internal checklist</p>
+    <h1>Matrix IDX setup checklist</h1>
+    <p class="lede">The site is already live with the approved Matrix IDX URL. This checklist is only for creating cleaner dedicated Matrix configs later: Map Search, Full Search, and My Listings.</p>
+
+    <section class="card">
+      <h2>1. Create the Matrix configs</h2>
+      <ol>
+        <li>Log into elevateMLS / PPMLS Matrix.</li>
+        <li>Open the user menu in the upper-right.</li>
+        <li>Go to <strong>Settings → IDX Configuration</strong>.</li>
+        <li>Create or confirm these forms, in this order:
+          <ul>
+            <li><strong>Map Search</strong> — primary embedded buyer search.</li>
+            <li><strong>Search</strong> — full filter/search experience.</li>
+            <li><strong>My Listings</strong> — Bibek/office/agent listing view if available.</li>
+          </ul>
+        </li>
+        <li>Turn <strong>IDX Enabled</strong> on for each one.</li>
+        <li>If Matrix asks for allowed domains, use <code>https://rimyan.com</code> and <code>https://www.rimyan.com</code>.</li>
+        <li>Copy only the generated Activation HTML/iFrame URL. Do not paste passwords, MLS credentials, or API keys anywhere in GitHub.</li>
+      </ol>
+    </section>
+
+    <section class="card">
+      <h2>2. Paste the generated URLs into the site</h2>
+      <p>Open <span class="slot">script.js</span> and replace these connector values:</p>
+      <ul>
+        <li><span class="slot">idxMapSearch</span> → Matrix Map Search URL.</li>
+        <li><span class="slot">idxAdvancedSearch</span> → Matrix Search URL.</li>
+        <li><span class="slot">idxMyListings</span> → Matrix My Listings URL.</li>
+      </ul>
+      <p>The site already falls back safely: Map Search and Full Search use the current approved IDX URL; My Listings routes to the contact form until a dedicated My Listings URL exists.</p>
+    </section>
+
+    <section class="card">
+      <h2>3. Verify before merging</h2>
+      <ul>
+        <li class="ok">Map Search embeds in the MLS section.</li>
+        <li class="ok">Full Search opens Matrix in a new tab.</li>
+        <li class="ok">My Listings either opens Matrix or pre-fills the contact form.</li>
+        <li class="ok">Phone, email, brokerage, license, Equal Housing, and IDX attribution remain visible.</li>
+        <li class="ok">No MLS/API credentials are committed.</li>
+      </ul>
+      <p class="warn">Do not scrape MLS pages or rebuild listing cards from iframe content. Keep listing data inside approved Matrix/elevateMLS surfaces.</p>
+    </section>
+  </main>
+</body>
+</html>

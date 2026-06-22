@@ -1,10 +1,17 @@
+const MATRIX_IDX_URL = 'https://ppmls.mlsmatrix.com/Matrix/public/IDX.aspx?idx=1d51306';
+
 const RIMYAN_CONFIG = {
   leadEmail: 'bibek@rimyan.com',
   phoneDisplay: '281-910-8744',
   phoneHref: 'tel:+12819108744',
   connectors: {
-    idxAdvancedSearch: 'https://ppmls.mlsmatrix.com/Matrix/public/IDX.aspx?idx=1d51306',
-    idxMapSearch: 'https://ppmls.mlsmatrix.com/Matrix/public/IDX.aspx?idx=1d51306',
+    // Paste the dedicated Matrix "Search" Activation URL here once that IDX config exists.
+    idxAdvancedSearch: MATRIX_IDX_URL,
+    // Paste the dedicated Matrix "Map Search" Activation URL here once that IDX config exists.
+    idxMapSearch: MATRIX_IDX_URL,
+    // Paste the dedicated Matrix "My Listings" Activation URL here once that IDX config exists.
+    idxMyListings: '',
+    // Backward-compatible alias for older featured-listing connector naming.
     featuredListings: '',
     valuation: '',
     marketReports: '',
@@ -147,12 +154,61 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function hydrateIdxConnectors() {
-    const idxUrl = RIMYAN_CONFIG.connectors.idxMapSearch || RIMYAN_CONFIG.connectors.idxAdvancedSearch;
+    const connectors = RIMYAN_CONFIG.connectors;
+    const mapUrl = connectors.idxMapSearch || connectors.idxAdvancedSearch;
+    const searchUrl = connectors.idxAdvancedSearch || connectors.idxMapSearch;
+    const listingsUrl = connectors.idxMyListings || connectors.featuredListings;
     const idxFrame = document.getElementById('idxMapFrame');
     const idxLink = document.getElementById('idxMapLink');
+    const searchLink = document.getElementById('idxSearchLink');
+    const listingsLink = document.getElementById('idxListingsLink');
+    const idxTitle = document.getElementById('idxToolTitle');
+    const idxStatus = document.getElementById('idxToolStatus');
 
-    if (idxLink && idxUrl) idxLink.href = idxUrl;
-    if (idxFrame && idxUrl) idxFrame.src = idxUrl;
+    setExternalLink(idxLink, mapUrl);
+    setExternalLink(searchLink, searchUrl);
+
+    if (idxFrame && mapUrl) idxFrame.src = mapUrl;
+    if (idxStatus) idxStatus.textContent = getMapStatus(mapUrl, searchUrl);
+
+    if (listingsLink) {
+      if (listingsUrl) {
+        setExternalLink(listingsLink, listingsUrl);
+        listingsLink.textContent = 'My Listings';
+        listingsLink.dataset.context = '';
+        listingsLink.dataset.interest = '';
+        listingsLink.removeAttribute('data-scroll');
+      } else {
+        listingsLink.href = '#contact';
+        listingsLink.removeAttribute('target');
+        listingsLink.removeAttribute('rel');
+        listingsLink.dataset.scroll = '#contact';
+        listingsLink.dataset.context = "IDX: wants Bibek's current listings";
+        listingsLink.dataset.interest = 'Buying';
+      }
+    }
+
+    document.querySelectorAll('[data-idx-tool="map"]').forEach((button) => {
+      button.addEventListener('click', () => {
+        if (!idxFrame || !mapUrl) return;
+        idxFrame.src = mapUrl;
+        if (idxTitle) idxTitle.textContent = 'Interactive map search';
+        if (idxStatus) idxStatus.textContent = getMapStatus(mapUrl, searchUrl);
+        document.querySelectorAll('[data-idx-tool]').forEach((el) => el.setAttribute('aria-pressed', 'false'));
+        button.setAttribute('aria-pressed', 'true');
+      });
+    });
+  }
+
+  function setExternalLink(link, url) {
+    if (!link || !url) return;
+    link.href = url;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+  }
+
+  function getMapStatus(mapUrl, searchUrl) {
+    return mapUrl && searchUrl && mapUrl !== searchUrl ? 'Dedicated Matrix map search' : 'Live Matrix IDX';
   }
 
   function setLeadContext(value) {
