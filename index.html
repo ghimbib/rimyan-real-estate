@@ -205,9 +205,9 @@
           </form>
           <p class="val-note">Prepared personally by Bibek &middot; no automated spam.</p>
         </div>
-        <div class="gauge" aria-hidden="true">
-          <svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="84" fill="none" stroke="rgba(251,247,239,.16)" stroke-width="10"/><circle cx="100" cy="100" r="84" fill="none" stroke="var(--gold)" stroke-width="10" stroke-linecap="round" stroke-dasharray="120 528" transform="rotate(-90 100 100)"/></svg>
-          <div class="gauge-c"><span class="gauge-v">$ — —</span><span class="gauge-l">Pricing read<br>after request</span></div>
+        <div class="gauge" id="valuationGauge" aria-hidden="true" data-min="200000" data-max="2000000" data-step="25000">
+          <svg viewBox="0 0 200 200"><circle class="gauge-track" cx="100" cy="100" r="84" fill="none" stroke="rgba(251,247,239,.16)" stroke-width="10"/><circle class="gauge-progress" id="valuationGaugeProgress" cx="100" cy="100" r="84" fill="none" stroke="var(--gold)" stroke-width="10" stroke-linecap="round" stroke-dasharray="120 528" transform="rotate(-90 100 100)"/></svg>
+          <div class="gauge-c"><span class="gauge-v" id="valuationGaugeValue">$650K</span><span class="gauge-l">Market range<br>preview</span></div>
         </div>
       </div>
     </section>
