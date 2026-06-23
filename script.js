@@ -1,7 +1,7 @@
 const RIMYAN_CONFIG = {
   leadEmail: 'bibek@rimyan.com',
-  phoneDisplay: '719-445-9216',
-  phoneHref: 'tel:+17194459216',
+  phoneDisplay: '281-910-8744',
+  phoneHref: 'tel:+12819108744',
   connectors: {
     idxAdvancedSearch: '',
     idxMapSearch: '',
