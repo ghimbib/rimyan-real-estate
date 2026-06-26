@@ -92,7 +92,7 @@
           </div>
           <div class="field sel">
             <label for="price">Price</label>
-            <select id="price" name="price"><option>Any price</option><option>Up to $400k</option><option>$400–550k</option><option>$550–700k</option><option>$700k–1M</option><option>$1M+</option></select>
+            <select id="price" name="price"><option>Any price</option><option>Up to $500k</option><option>$500–650k</option><option>$650–800k</option><option>$800k–1M</option><option>$1M+</option></select>
           </div>
           <div class="field sel">
             <label for="type">Type</label>
@@ -179,7 +179,20 @@
               <a class="idx-open" id="idxMapLink" href="https://ppmls.mlsmatrix.com/Matrix/public/IDX.aspx?idx=1d51306" target="_blank" rel="noopener noreferrer">Open in Matrix</a>
             </div>
           </div>
+          <div class="idx-search-bridge" id="idxSearchBridge" hidden>
+            <div>
+              <span class="idx-bridge-kicker">Search handoff</span>
+              <strong id="idxBridgeTitle">MLS search ready</strong>
+              <p id="idxBridgeSummary">Use the live Matrix search below, then send me any homes worth a closer read.</p>
+            </div>
+            <ul class="idx-bridge-criteria" id="idxBridgeCriteria" aria-label="Selected search criteria"></ul>
+            <div class="idx-bridge-actions">
+              <a class="idx-bridge-primary" id="idxBridgeOpen" href="https://ppmls.mlsmatrix.com/Matrix/public/IDX.aspx?idx=1d51306" target="_blank" rel="noopener noreferrer">Open Matrix search</a>
+              <button class="idx-bridge-copy" id="idxBridgeCopy" type="button">Copy criteria</button>
+            </div>
+          </div>
           <div class="idx-frame-wrap">
+            <p class="idx-frame-note">If the embedded Matrix window is blank or asks for the user agreement, use <a id="idxFrameFallbackLink" href="https://ppmls.mlsmatrix.com/Matrix/public/IDX.aspx?idx=1d51306" target="_blank" rel="noopener noreferrer">Open Matrix search</a>.</p>
             <iframe id="idxMapFrame" title="Live PPAR and elevateMLS property search" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" data-idx-frame="map" src="about:blank"></iframe>
           </div>
           <noscript><p class="idx-noscript">JavaScript is required for the embedded MLS map. <a href="https://ppmls.mlsmatrix.com/Matrix/public/IDX.aspx?idx=1d51306">Open the full MLS search</a>.</p></noscript>
