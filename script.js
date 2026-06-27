@@ -65,26 +65,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const propertySearchForm = document.getElementById('propertySearchForm');
   if (propertySearchForm) {
+    wireQuickFilters(propertySearchForm);
     propertySearchForm.addEventListener('submit', (event) => {
       event.preventDefault();
-      const data = new FormData(propertySearchForm);
-      const location = data.get('location') || 'Colorado Springs area';
-      const beds = data.get('beds');
-      const price = data.get('price');
-      const type = data.get('type');
-      const filters = data.getAll('filters');
-      const context = [
-        `Buyer search: ${location}`,
-        (beds && beds !== 'Any') ? `${beds} beds` : '',
-        (price && !/Any/.test(price)) ? price : '',
-        (type && !/All/.test(type)) ? type : '',
-        filters.length ? `Filters: ${filters.join(', ')}` : ''
-      ].filter(Boolean).join(' · ');
-      setLeadContext(context);
-      prefillContact({ interest: 'Buying', message: 'Search request — ' + context });
+      const search = buildPropertySearch(propertySearchForm);
+      setLeadContext(search.context);
+      prefillContact({ interest: 'Buying', message: 'Search request — ' + search.context });
+      showIdxSearchBridge(search);
       const listings = document.getElementById('listings');
       if (RIMYAN_CONFIG.connectors.idxMapSearch && listings) {
-        showToast('Live MLS search is loaded below. If a home jumps out, send it to me and I’ll give you the read.');
+        showToast('MLS search opened below. Matrix will show live listings; your selected criteria are saved here for follow-up.');
         listings.scrollIntoView({ behavior: 'smooth', block: 'start' });
         return;
       }
@@ -136,6 +126,109 @@ document.addEventListener('DOMContentLoaded', () => {
     if (h) window.setTimeout(() => h.focus({ preventScroll: true }), 480);
   }
 
+  function wireQuickFilters(form) {
+    const linkedFilters = document.querySelectorAll(`input[name="filters"][form="${form.id}"]`);
+    const priceSelect = form.elements.price;
+    linkedFilters.forEach((checkbox) => {
+      checkbox.addEventListener('change', () => {
+        if (checkbox.value === 'Under $500k' && checkbox.checked && priceSelect) {
+          setSelectValue(priceSelect, 'Up to $500k');
+        }
+      });
+    });
+    if (priceSelect) {
+      priceSelect.addEventListener('change', () => {
+        const under500 = Array.from(linkedFilters).find((item) => item.value === 'Under $500k');
+        if (under500 && priceSelect.value !== 'Up to $500k') under500.checked = false;
+      });
+    }
+  }
+
+  function buildPropertySearch(form) {
+    const data = new FormData(form);
+    const location = String(data.get('location') || '').trim() || 'Colorado Springs area';
+    const beds = String(data.get('beds') || 'Any');
+    let price = String(data.get('price') || 'Any price');
+    const type = String(data.get('type') || 'All types');
+    const filters = data.getAll('filters').map((item) => String(item)).filter(Boolean);
+    if (filters.includes('Under $500k') && price === 'Any price') {
+      setSelectValue(form.elements.price, 'Up to $500k');
+      price = 'Up to $500k';
+    }
+
+    const criteria = [
+      `Location: ${location}`,
+      beds && beds !== 'Any' ? `Beds: ${beds}` : '',
+      price && !/Any/.test(price) ? `Price: ${price}` : '',
+      type && !/All/.test(type) ? `Type: ${type}` : '',
+      filters.length ? `Quick filters: ${filters.join(', ')}` : ''
+    ].filter(Boolean);
+
+    const context = [
+      `Buyer MLS search: ${location}`,
+      beds && beds !== 'Any' ? `${beds} beds` : '',
+      price && !/Any/.test(price) ? price : '',
+      type && !/All/.test(type) ? type : '',
+      filters.length ? `Filters: ${filters.join(', ')}` : ''
+    ].filter(Boolean).join(' · ');
+
+    return {
+      location,
+      criteria,
+      context,
+      matrixUrl: RIMYAN_CONFIG.connectors.idxAdvancedSearch || RIMYAN_CONFIG.connectors.idxMapSearch || MATRIX_IDX_URL
+    };
+  }
+
+  function showIdxSearchBridge(search) {
+    const bridge = document.getElementById('idxSearchBridge');
+    if (!bridge) return;
+    const title = document.getElementById('idxBridgeTitle');
+    const summary = document.getElementById('idxBridgeSummary');
+    const criteriaList = document.getElementById('idxBridgeCriteria');
+    const openLink = document.getElementById('idxBridgeOpen');
+    const copyButton = document.getElementById('idxBridgeCopy');
+    const idxTitle = document.getElementById('idxToolTitle');
+    const idxStatus = document.getElementById('idxToolStatus');
+
+    bridge.hidden = false;
+    if (title) title.textContent = `MLS search: ${search.location}`;
+    if (summary) {
+      summary.textContent = 'Matrix opens the approved live MLS search. Your selected criteria are saved here so you can copy them into Matrix or send them to me.';
+    }
+    if (criteriaList) {
+      criteriaList.replaceChildren();
+      search.criteria.forEach((criterion) => {
+        const item = document.createElement('li');
+        item.textContent = criterion;
+        criteriaList.appendChild(item);
+      });
+    }
+    setExternalLink(openLink, search.matrixUrl);
+    if (idxTitle) idxTitle.textContent = 'Live MLS search';
+    if (idxStatus) idxStatus.textContent = 'Selected criteria captured';
+    if (copyButton) {
+      copyButton.onclick = () => copySearchCriteria(search);
+    }
+  }
+
+  async function copySearchCriteria(search) {
+    const text = search.criteria.join('\n');
+    try {
+      await navigator.clipboard.writeText(text);
+      showToast('Search criteria copied. Paste them into Matrix or send them to me.');
+    } catch (error) {
+      prefillContact({ interest: 'Buying', message: 'Search request — ' + search.context });
+      showToast('Criteria saved in the contact form below.');
+    }
+  }
+
+  function setSelectValue(select, target) {
+    if (!select) return;
+    const match = Array.from(select.options).find((option) => option.value === target || option.textContent === target);
+    if (match) select.value = match.value;
+  }
+
   function hydrateContactConfig() {
     const emailLink = document.getElementById('emailLink');
     if (emailLink) {
@@ -162,12 +255,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const idxFrame = document.getElementById('idxMapFrame');
     const idxLink = document.getElementById('idxMapLink');
     const searchLink = document.getElementById('idxSearchLink');
+    const frameFallbackLink = document.getElementById('idxFrameFallbackLink');
     const listingsLink = document.getElementById('idxListingsLink');
     const idxTitle = document.getElementById('idxToolTitle');
     const idxStatus = document.getElementById('idxToolStatus');
 
     setExternalLink(idxLink, mapUrl);
     setExternalLink(searchLink, searchUrl);
+    setExternalLink(frameFallbackLink, searchUrl || mapUrl);
 
     if (idxFrame && mapUrl) idxFrame.src = mapUrl;
     if (idxStatus) idxStatus.textContent = getMapStatus(mapUrl, searchUrl);
