@@ -14,9 +14,10 @@ const RIMYAN_CONFIG = {
     // Paste the dedicated Matrix "My Listings" Activation URL here once that IDX config exists.
     idxMyListings: '',
     // DojoGate CRM inbound lead webhook. Every form submission is mirrored here
-    // (fire-and-forget) once the URL is set; email delivery is never blocked by it.
-    crmLeadWebhook: '',
-    crmApiKey: ''
+    // (fire-and-forget); email delivery is never blocked by it. The key only
+    // permits lead creation on this endpoint and can be rotated in DojoGate.
+    crmLeadWebhook: 'https://app.dojogate.ai/api/v1/webhooks/inbound/rimyan-website',
+    crmApiKey: 'wh_e06c46437c0043357aa4e84c5dc77299'
   }
 };
 
