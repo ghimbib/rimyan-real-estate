@@ -4,6 +4,8 @@ const RIMYAN_CONFIG = {
   leadEmail: 'bibek@rimyan.com',
   phoneDisplay: '281-910-8744',
   phoneHref: 'tel:+12819108744',
+  // FormSubmit AJAX endpoint — delivers form leads to email without a page reload.
+  formEndpoint: 'https://formsubmit.co/ajax/bibek@rimyan.com',
   connectors: {
     // Paste the dedicated Matrix "Search" Activation URL here once that IDX config exists.
     idxAdvancedSearch: MATRIX_IDX_URL,
@@ -11,11 +13,11 @@ const RIMYAN_CONFIG = {
     idxMapSearch: MATRIX_IDX_URL,
     // Paste the dedicated Matrix "My Listings" Activation URL here once that IDX config exists.
     idxMyListings: '',
-    // Backward-compatible alias for older featured-listing connector naming.
-    featuredListings: '',
-    valuation: '',
-    marketReports: '',
-    crmLeadWebhook: ''
+    // DojoGate CRM inbound lead webhook. Every form submission is mirrored here
+    // (fire-and-forget); email delivery is never blocked by it. The key only
+    // permits lead creation on this endpoint and can be rotated in DojoGate.
+    crmLeadWebhook: 'https://app.dojogate.ai/api/v1/webhooks/inbound/rimyan-website',
+    crmApiKey: 'wh_e06c46437c0043357aa4e84c5dc77299'
   }
 };
 
@@ -29,7 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   hydrateContactConfig();
   hydrateIdxConnectors();
-  hydrateValuationGauge();
 
   if (toggle && links) {
     toggle.addEventListener('click', () => {
@@ -63,20 +64,21 @@ document.addEventListener('DOMContentLoaded', () => {
     if (mobileCta) mobileCta.classList.toggle('visible', window.scrollY > 520);
   }, { passive: true });
 
-  const valuationForm = document.getElementById('valuationForm');
-  if (valuationForm) {
-    valuationForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-      const data = new FormData(valuationForm);
-      const address = data.get('address') || 'Address not provided';
-      const email = data.get('email') || 'Email not provided';
-      setLeadContext(`Seller valuation request: ${address} | Email: ${email}`);
-      prefillContact({ email, interest: 'Selling', message: `I would like a home valuation for: ${address}` });
-      showToast('Got it. Confirm below and I’ll send back a real pricing read — comps, competition, and net.');
-      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-      focusContactHeading();
-    });
-  }
+  wireLeadForm({
+    formId: 'valuationForm',
+    subject: 'Rimyan home valuation request',
+    interest: 'Selling',
+    context: (data) => `Seller valuation request: ${data.address}`,
+    success: 'Got it. I’ll send back a real pricing read — comps, competition, and likely net — usually within one business day.'
+  });
+
+  wireLeadForm({
+    formId: 'dealForm',
+    subject: 'Rimyan deal review request',
+    interest: 'Investing',
+    context: (data) => `Deal review request: ${data.listing}`,
+    success: 'Got it. I’ll run the numbers and reply personally — price vs. comps, monthly cost, and the questions I’d ask.'
+  });
 
   const contactForm = document.getElementById('contactForm');
   if (contactForm) {
@@ -90,7 +92,78 @@ document.addEventListener('DOMContentLoaded', () => {
         submit.textContent = 'Sending...';
         submit.disabled = true;
       }
+      // Mirror to the CRM before the page navigates; keepalive lets it finish in-flight.
+      sendLeadToCrm({
+        name,
+        email: contactForm.querySelector('[name="email"]')?.value || '',
+        phone: contactForm.querySelector('[name="phone"]')?.value || '',
+        interest,
+        message: contactForm.querySelector('[name="message"]')?.value || '',
+        source_context: sourceContext ? sourceContext.value : 'Direct contact form'
+      });
     });
+  }
+
+  function wireLeadForm({ formId, subject, interest, context, success }) {
+    const form = document.getElementById(formId);
+    if (!form) return;
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const button = form.querySelector('button[type="submit"]');
+      const data = Object.fromEntries(new FormData(form).entries());
+      const leadContext = context(data);
+      setLeadContext(leadContext);
+      if (button) {
+        button.dataset.label = button.textContent;
+        button.textContent = 'Sending...';
+        button.disabled = true;
+      }
+
+      sendLeadToCrm({ ...data, interest, source_context: leadContext });
+
+      try {
+        const response = await fetch(RIMYAN_CONFIG.formEndpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ ...data, _subject: subject, _template: 'table', source_context: leadContext })
+        });
+        if (!response.ok) throw new Error(`FormSubmit ${response.status}`);
+        form.reset();
+        showToast(success);
+      } catch (error) {
+        // Email delivery failed — keep the lead by pre-filling the contact form.
+        prefillContact({ email: data.email, interest, message: leadContext });
+        showToast('Almost there — confirm your details in the contact form below and hit send.');
+        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+        focusContactHeading();
+      } finally {
+        if (button) {
+          button.textContent = button.dataset.label || 'Send';
+          button.disabled = false;
+        }
+      }
+    });
+  }
+
+  function sendLeadToCrm(lead) {
+    const url = RIMYAN_CONFIG.connectors.crmLeadWebhook;
+    if (!url) return;
+    const [firstName, ...rest] = String(lead.name || '').trim().split(/\s+/);
+    const payload = {
+      first_name: firstName || 'Website',
+      last_name: rest.join(' ') || 'Lead',
+      email: lead.email || '',
+      phone: lead.phone || '',
+      message: [lead.message, lead.address && `Address: ${lead.address}`, lead.listing && `Listing: ${lead.listing}`]
+        .filter(Boolean).join('\n'),
+      source: 'rimyan.com',
+      source_context: lead.source_context || '',
+      interest: lead.interest || ''
+    };
+    const headers = { 'Content-Type': 'application/json' };
+    if (RIMYAN_CONFIG.connectors.crmApiKey) headers['x-api-key'] = RIMYAN_CONFIG.connectors.crmApiKey;
+    fetch(url, { method: 'POST', headers, body: JSON.stringify(payload), keepalive: true })
+      .catch(() => { /* CRM mirror is best-effort; email is the source of truth. */ });
   }
 
   function closeMobileNav() {
@@ -127,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const connectors = RIMYAN_CONFIG.connectors;
     const mapUrl = connectors.idxMapSearch || connectors.idxAdvancedSearch;
     const searchUrl = connectors.idxAdvancedSearch || connectors.idxMapSearch;
-    const listingsUrl = connectors.idxMyListings || connectors.featuredListings;
+    const listingsUrl = connectors.idxMyListings;
     const idxFrame = document.getElementById('idxMapFrame');
     const idxLink = document.getElementById('idxMapLink');
     const searchLink = document.getElementById('idxSearchLink');
@@ -143,21 +216,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (idxFrame && mapUrl) idxFrame.src = mapUrl;
     if (idxStatus) idxStatus.textContent = getMapStatus(mapUrl, searchUrl);
 
-    if (listingsLink) {
-      if (listingsUrl) {
-        setExternalLink(listingsLink, listingsUrl);
-        listingsLink.textContent = 'My Listings';
-        listingsLink.dataset.context = '';
-        listingsLink.dataset.interest = '';
-        listingsLink.removeAttribute('data-scroll');
-      } else {
-        listingsLink.href = '#contact';
-        listingsLink.removeAttribute('target');
-        listingsLink.removeAttribute('rel');
-        listingsLink.dataset.scroll = '#contact';
-        listingsLink.dataset.context = "IDX: wants Bibek's current listings";
-        listingsLink.dataset.interest = 'Buying';
-      }
+    if (listingsLink && listingsUrl) {
+      setExternalLink(listingsLink, listingsUrl);
+      listingsLink.textContent = 'My Listings';
+      listingsLink.dataset.context = '';
+      listingsLink.dataset.interest = '';
+      listingsLink.removeAttribute('data-scroll');
     }
 
     document.querySelectorAll('[data-idx-tool="map"]').forEach((button) => {
@@ -183,104 +247,6 @@ document.addEventListener('DOMContentLoaded', () => {
     return mapUrl && searchUrl && mapUrl !== searchUrl ? 'Dedicated Matrix map search' : 'Live Matrix IDX';
   }
 
-  function hydrateValuationGauge() {
-    const gauge = document.getElementById('valuationGauge');
-    const valueEl = document.getElementById('valuationGaugeValue');
-    const progress = document.getElementById('valuationGaugeProgress');
-    if (!gauge || !valueEl || !progress) return;
-
-    const min = Number(gauge.dataset.min) || 200000;
-    const max = Number(gauge.dataset.max) || 2000000;
-    const step = Number(gauge.dataset.step) || 25000;
-    const radius = Number(progress.getAttribute('r')) || 84;
-    const circumference = 2 * Math.PI * radius;
-    const minArc = circumference * 0.16;
-    const maxArc = circumference * 0.84;
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let current = clampValue(650000, min, max);
-    let frameId = null;
-    let intervalId = null;
-
-    setGauge(current);
-    if (reduceMotion) return;
-
-    startGaugeLoop();
-
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) {
-        stopGaugeLoop();
-        return;
-      }
-      startGaugeLoop();
-    });
-
-    function startGaugeLoop() {
-      stopGaugeLoop();
-      intervalId = window.setInterval(() => {
-        animateGaugeTo(getRandomGaugeValue(current));
-      }, 1900);
-    }
-
-    function stopGaugeLoop() {
-      window.clearInterval(intervalId);
-      window.cancelAnimationFrame(frameId);
-    }
-
-    function animateGaugeTo(target) {
-      const start = current;
-      const startedAt = performance.now();
-      const duration = 760;
-      window.cancelAnimationFrame(frameId);
-
-      const tick = (now) => {
-        const progressRatio = Math.min((now - startedAt) / duration, 1);
-        const eased = 1 - Math.pow(1 - progressRatio, 3);
-        const value = start + ((target - start) * eased);
-        setGauge(value);
-        if (progressRatio < 1) {
-          frameId = window.requestAnimationFrame(tick);
-          return;
-        }
-        current = target;
-        setGauge(current);
-      };
-
-      frameId = window.requestAnimationFrame(tick);
-    }
-
-    function setGauge(value) {
-      const clamped = clampValue(value, min, max);
-      const ratio = (clamped - min) / (max - min);
-      const arc = minArc + ((maxArc - minArc) * ratio);
-      progress.style.strokeDasharray = `${arc.toFixed(1)} ${circumference.toFixed(1)}`;
-      valueEl.textContent = formatGaugeValue(clamped);
-    }
-
-    function getRandomGaugeValue(previous) {
-      const steps = Math.floor((max - min) / step);
-      let next = previous;
-      let attempts = 0;
-      while (Math.abs(next - previous) < 125000 && attempts < 8) {
-        next = min + (Math.floor(Math.random() * (steps + 1)) * step);
-        attempts += 1;
-      }
-      return clampValue(next, min, max);
-    }
-  }
-
-  function clampValue(value, min, max) {
-    return Math.min(Math.max(value, min), max);
-  }
-
-  function formatGaugeValue(value) {
-    const rounded = Math.round(value / 1000) * 1000;
-    if (rounded >= 1000000) {
-      const precision = rounded % 1000000 === 0 ? 0 : (rounded % 100000 === 0 ? 1 : 2);
-      return `$${(rounded / 1000000).toFixed(precision)}M`;
-    }
-    return `$${Math.round(rounded / 1000)}K`;
-  }
-
   function setLeadContext(value) {
     if (sourceContext) sourceContext.value = value;
   }
@@ -288,9 +254,15 @@ document.addEventListener('DOMContentLoaded', () => {
   function prefillContact({ email, interest, message }) {
     const form = document.getElementById('contactForm');
     if (!form) return;
-    if (email && email !== 'Email not provided') form.querySelector('[name="email"]').value = email;
-    if (interest) form.querySelector('[name="interest"]').value = interest;
+    if (email) form.querySelector('[name="email"]').value = email;
+    if (interest) setSelectValue(form.querySelector('[name="interest"]'), interest);
     if (message) form.querySelector('[name="message"]').value = message;
+  }
+
+  function setSelectValue(select, target) {
+    if (!select) return;
+    const match = Array.from(select.options).find((option) => option.value === target || option.textContent === target);
+    if (match) select.value = match.value;
   }
 
   function showToast(message) {
@@ -298,6 +270,6 @@ document.addEventListener('DOMContentLoaded', () => {
     toast.textContent = message;
     toast.classList.add('visible');
     window.clearTimeout(showToast.timeout);
-    showToast.timeout = window.setTimeout(() => toast.classList.remove('visible'), 4200);
+    showToast.timeout = window.setTimeout(() => toast.classList.remove('visible'), 5200);
   }
 });
